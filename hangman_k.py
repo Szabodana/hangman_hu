@@ -7,7 +7,7 @@ import unidecode as u
 import time as t
 import random as r
 #megadott URL alapján végigkeresi a HTMLben az "a" tageket
-#speciális karatkereket, 
+#speciális karatkereket, túl rövid, illetve túl hosszú szavakat pedig kiszűri. 
 def get_lista(x):
     szolista=list()
     parse = req.get(x).text
@@ -22,7 +22,7 @@ def get_lista(x):
                 szolista.append(s)
     print(len(szolista), "találat")
     return szolista
-
+#megkeresi hogy a tippelt_betu szerepel-e a titkos_szo-ban. Ha igen True, else False
 def szo_talalat_check(titkos_szo, tippelt_betu):
     check=False
     for i in titkos_szo:
@@ -48,7 +48,7 @@ def uj_jatek():
 #Ha van szám a stringben akkor True, ha nincs akkor False
 def szam_check(str):
     return any(x.isdigit() for x in str)
-
+#URLt kér, ha a get_lista valamiért hibára fut, akkor visszadob a kezdéshez
 def titkos_szo_kereso():
     url=input("Először add meg az URL-t ami alapján a szót kiválasztom:")
     try:
@@ -57,7 +57,7 @@ def titkos_szo_kereso():
     except:
         print("Helytelen URL vagy Beautifulsoup valamiért tracebacket dobott :(\n")
         fo_jatek()
-
+#Végigiterálja a titkos_szo-t, ha egy betu már szerepelt az eddig_tippelt_betu, tippelt_betu közül valamelyikben, akkor azt dobja vissza, ha nem akkor _
 def check(titkos_szo, eddig_tippelt_betuk, tippelt_betu): 
     stat = '' 
     talalat = 0     
@@ -99,7 +99,7 @@ def fo_jatek():
                 print("\n",result)
                 print(f"Hátralévő tippek száma: {fordulok_szama-tippek_szama}!")
         else: 
-            print("Hiba! Egyszerre csak egy betűt írhatsz be!" )
+            print("Hibás input, Egyszerre csak egy betűt írhatsz be!" )
     print("Túl sok próbálkozás, játék vége!")
     print(f"A helyes válasz {titkos_szo} volt!")
     uj_jatek()
